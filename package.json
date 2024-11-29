@@ -10,13 +10,29 @@
   },
   "dependencies": {
     "expo": "~52.0.11",
+    "expo-font": "~13.0.1",
+    "expo-splash-screen": "~0.29.13",
     "expo-status-bar": "~2.0.0",
+    "intl": "^1.2.5",
     "react": "18.3.1",
-    "react-native": "0.76.3"
+    "react-native": "0.76.3",
+    "react-native-svg": "15.8.0",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@react-native/eslint-config": "0.76.3",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/react": "~18.3.12",
+    "@types/styled-components": "^5.1.34",
+    "@types/styled-components-react-native": "^5.2.5",
+    "@typescript-eslint/eslint-plugin": "5.23",
+    "@typescript-eslint/parser": "5.23",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "8.5",
+    "eslint-plugin-import": "2.26",
+    "eslint-plugin-jest": "^28.9.0",
+    "prettier": "2.8.8",
     "typescript": "^5.3.3"
   },
   "private": true
