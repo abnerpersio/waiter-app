@@ -1,33 +1,49 @@
-import { Pressable, PressableProps, StyleProp, View, ViewStyle } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  PressableProps,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { AppText } from '../text';
-import { styles } from './styles';
+import { COLORS, styles } from './styles';
 
 type Props = Omit<PressableProps, 'style'> & {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  color?: 'default' | 'white';
+  loading?: boolean;
 };
 
 export function Button(props: Props) {
-  const { style, disabled, children, ...restProps } = props;
+  const { style, disabled, children, color = 'default', loading, ...restProps } = props;
+
+  const isDisabled = disabled || loading;
 
   return (
     <View style={styles.buttonWrapper}>
       <Pressable
         android_ripple={{
-          color: '#eb2f35',
+          color: COLORS[color].ripple,
         }}
-        disabled={disabled}
+        disabled={isDisabled}
         style={({ pressed }) => [
           styles.button,
+          styles[`button-${color}`],
           pressed && styles.buttonActive,
-          disabled && styles.buttonDisabled,
+          isDisabled && styles.buttonDisabled,
           style,
         ]}
         {...restProps}
       >
-        <AppText weight="600" color="#fff">
-          {children}
-        </AppText>
+        {loading && <ActivityIndicator color="#fff" />}
+
+        {!loading && (
+          <AppText weight="600" color={COLORS[color].text}>
+            {children}
+          </AppText>
+        )}
       </Pressable>
     </View>
   );
