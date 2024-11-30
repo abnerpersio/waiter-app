@@ -1,5 +1,7 @@
 ### References
 
+This repo is part of the project "Waiter app", you can check the other repos here:
+
 - [Waiter app API](https://github.com/abnerpersio/waiter-backend)
 - [Waiter app WEB client](https://github.com/abnerpersio/waiter-web)
 
