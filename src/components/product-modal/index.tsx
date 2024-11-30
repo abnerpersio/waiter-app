@@ -18,13 +18,14 @@ import {
 } from './styles';
 
 type Props = {
+  visible: boolean;
   product: Product | null;
   onClose: () => void;
   onAddToCart: (product: Product) => void;
 };
 
 export function ProductModal(props: Props) {
-  const { product, onClose, onAddToCart } = props;
+  const { visible, product, onClose, onAddToCart } = props;
 
   const handleAddToCart = () => {
     onAddToCart(product!);
@@ -37,7 +38,7 @@ export function ProductModal(props: Props) {
 
   return (
     <RNModal
-      visible={!!product}
+      visible={visible}
       onRequestClose={onClose}
       animationType="slide"
       presentationStyle="pageSheet"

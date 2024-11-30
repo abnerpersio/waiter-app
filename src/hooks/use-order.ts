@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CartItem } from '../types/cart';
 import { Product } from '../types/product';
 
@@ -6,11 +6,11 @@ export function useOrder() {
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const handleSelectTable = (table: string) => {
+  const handleSelectTable = useCallback((table: string) => {
     setSelectedTable(table);
-  };
+  }, []);
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = useCallback((product: Product) => {
     setCartItems((prevState) => {
       const index = prevState.findIndex((cartItem) => cartItem.product._id === product._id);
 
@@ -23,9 +23,9 @@ export function useOrder() {
 
       return prevState.concat({ product, quantity: 1 });
     });
-  };
+  }, []);
 
-  const handleIncrementProduct = (productId: string) => {
+  const handleIncrementProduct = useCallback((productId: string) => {
     setCartItems((prevState) => {
       const index = prevState.findIndex((cartItem) => cartItem.product._id === productId);
       const list = [...prevState];
@@ -34,9 +34,9 @@ export function useOrder() {
       list[index] = { ...cartItem, quantity: cartItem.quantity + 1 };
       return list;
     });
-  };
+  }, []);
 
-  const handleDecrementProduct = (productId: string) => {
+  const handleDecrementProduct = useCallback((productId: string) => {
     setCartItems((prevState) => {
       const index = prevState.findIndex((cartItem) => cartItem.product._id === productId);
       const list = [...prevState];
@@ -50,12 +50,12 @@ export function useOrder() {
       list[index] = { ...cartItem, quantity: cartItem.quantity - 1 };
       return list.filter(({ quantity }) => quantity > 0);
     });
-  };
+  }, []);
 
-  const handleResetOrder = () => {
+  const handleResetOrder = useCallback(() => {
     setSelectedTable(null);
     setCartItems([]);
-  };
+  }, []);
 
   return {
     selectedTable,

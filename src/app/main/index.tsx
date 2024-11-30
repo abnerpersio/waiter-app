@@ -22,23 +22,6 @@ export function Main() {
   const [isConfirmedModalVisible, setIsConfirmedModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const { products, isLoading: isLoadingProducts } = useProducts({
-    filters: {
-      category: selectedCategory,
-    },
-  });
-
-  const { categories, isLoading: isLoadingCategories } = useCategories();
-
-  const { mutate, isLoading: isCreating } = useConfirmOrder({
-    onSucess: () => {
-      setIsConfirmedModalVisible(true);
-      onResetOrder();
-    },
-  });
-
-  const isLoading = isLoadingProducts || isLoadingCategories;
-
   const {
     selectedTable,
     cartItems,
@@ -48,6 +31,22 @@ export function Main() {
     onResetOrder,
     onSelectTable,
   } = useOrder();
+
+  const { categories, isLoading: isLoadingCategories } = useCategories();
+  const { products, isLoading: isLoadingProducts } = useProducts({
+    filters: {
+      category: selectedCategory,
+    },
+  });
+
+  const { mutate, isLoading: isCreating } = useConfirmOrder({
+    onSucess: () => {
+      setIsConfirmedModalVisible(true);
+      onResetOrder();
+    },
+  });
+
+  const isLoading = isLoadingProducts || isLoadingCategories;
 
   const handleSelectCategory = (categoryId: string) => {
     setSelectedCategory((prevState) => (prevState === categoryId ? null : categoryId));
@@ -69,6 +68,7 @@ export function Main() {
   const handleAddToCart = (product: Product) => {
     onAddToCart(product);
 
+    // TODO: not working when comes from product modal
     if (!selectedTable) {
       setIsTableModalVisible(true);
     }
@@ -90,6 +90,14 @@ export function Main() {
 
   return (
     <>
+      <TableModal
+        visible={isTableModalVisible}
+        onClose={handleCloseTableModal}
+        onSave={handleSelectTable}
+      />
+
+      <OrderConfirmedModal visible={isConfirmedModalVisible} onClose={handleCloseConfirmedModal} />
+
       <Container>
         <StatusBar style="dark" backgroundColor="#fafafa" />
 
@@ -136,14 +144,6 @@ export function Main() {
           )}
         </Footer>
       </Container>
-
-      <TableModal
-        visible={isTableModalVisible}
-        onClose={handleCloseTableModal}
-        onSave={handleSelectTable}
-      />
-
-      <OrderConfirmedModal visible={isConfirmedModalVisible} onClose={handleCloseConfirmedModal} />
     </>
   );
 }

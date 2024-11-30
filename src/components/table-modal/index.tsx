@@ -25,6 +25,10 @@ export function TableModal(props: Props) {
     onClose();
   };
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <Modal visible={visible} onClose={handleClose}>
       <Form>

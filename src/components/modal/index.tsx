@@ -14,6 +14,10 @@ type Props = {
 export function Modal(props: Props) {
   const { visible, onClose, children } = props;
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <RNModal visible={visible} transparent onRequestClose={onClose} animationType="fade">
       <Overlay behavior={IS_ANDROID ? 'height' : 'padding'}>

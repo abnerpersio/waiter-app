@@ -26,13 +26,16 @@ type Props = {
 export function Menu(props: Props) {
   const { products, onAddToCart } = props;
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const handleOpenProductModal = (product: Product) => {
+    setIsModalVisible(true);
     setSelectedProduct(product);
   };
 
   const handleCloseProductModal = () => {
+    setIsModalVisible(false);
     setSelectedProduct(null);
   };
 
@@ -48,6 +51,13 @@ export function Menu(props: Props) {
 
   return (
     <Container>
+      <ProductModal
+        visible={isModalVisible}
+        product={selectedProduct}
+        onClose={handleCloseProductModal}
+        onAddToCart={onAddToCart}
+      />
+
       <FlatList
         data={products}
         contentContainerStyle={styles.productListContainer}
@@ -78,12 +88,6 @@ export function Menu(props: Props) {
             </AddToCartButton>
           </ProductContainer>
         )}
-      />
-
-      <ProductModal
-        product={selectedProduct}
-        onClose={handleCloseProductModal}
-        onAddToCart={onAddToCart}
       />
     </Container>
   );
