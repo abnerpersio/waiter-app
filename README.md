@@ -5,6 +5,10 @@ This repo is part of the project "Waiter app", you can check the other repos her
 - [Waiter app API](https://github.com/abnerpersio/waiter-backend)
 - [Waiter app WEB client](https://github.com/abnerpersio/waiter-web)
 
+### Links
+
+[Figma - WaiterApp](https://www.figma.com/design/hJvsULkA3cDLNbTswLdTZP/Waiter-App-(2.0)-(Copia-local)?m=auto&t=gwbhwBpfrkPyzOju-1)
+
 ### Screenshots
 
 ![image-1](./docs/images/image-1.png)
